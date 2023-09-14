@@ -3,5 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "agadia oghenemaro jeffery",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.5.1",
+    "supervisor": "^0.12.0"
+  }
 }
