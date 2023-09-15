@@ -3,6 +3,9 @@ const app = express();
 const http = require("http");
 const bp = require("body-parser");
 const cors = require("cors");
+const mongoose = require("mongoose");
+const env = require("dotenv").config();
+const authRoute = require("./routes/auth");
 const PORT = process.env.PORT || 3001;
 
 app.use(bp.json({ limit: "50mb" }));
@@ -16,11 +19,18 @@ app.use(
   })
 );
 
-app.get("/", function (req, res) {
-  res.status(200).json({ name: "jo" });
-});
-
 const server = http.createServer(app);
+mongoose
+  .connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("conne");
+  })
+  .catch((err) => console.log(err));
+
+app.use("/api/auth", authRoute);
 server.listen(PORT, () => {
-  console.log("connected");
+  console.log("working");
 });
