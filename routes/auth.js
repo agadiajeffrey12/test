@@ -12,7 +12,8 @@ router.post("/register", async (req, res) => {
 
     // create new user with hashed password
     const newUser = new User({
-      username: req.body.username,
+      firstname: req.body.firstname,
+      name: req.body.name,
       email: req.body.email,
       password: hashedPassword,
     });
@@ -30,7 +31,7 @@ module.exports = router;
 // LOGIN USERS
 
 router.post("/login", async (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   try {
     const user = await User.findOne({
       email: req.body.email,
@@ -46,4 +47,11 @@ router.post("/login", async (req, res) => {
   } catch (err) {
     res.status(500).json(err);
   }
+});
+
+router.put("/:id/course", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    await user.updateOne({ $push: { courses: req.body.broadcast } });
+  } catch (err) {}
 });

@@ -6,6 +6,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const env = require("dotenv").config();
 const authRoute = require("./routes/auth");
+const instituteRoute = require("./routes/institute");
 const PORT = process.env.PORT || 3001;
 
 app.use(bp.json({ limit: "50mb" }));
@@ -31,6 +32,8 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/api/auth", authRoute);
+app.use("/api/school", instituteRoute);
+
 server.listen(PORT, () => {
   console.log("working");
 });
