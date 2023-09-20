@@ -13,7 +13,7 @@ router.post("/register", async (req, res) => {
     // create new user with hashed password
     const newUser = new User({
       firstname: req.body.firstname,
-      name: req.body.name,
+      lastname: req.body.lastname,
       email: req.body.email,
       password: hashedPassword,
     });
@@ -31,7 +31,7 @@ module.exports = router;
 // LOGIN USERS
 
 router.post("/login", async (req, res) => {
-  // console.log(req.body);
+  console.log(req.body);
   try {
     const user = await User.findOne({
       email: req.body.email,
@@ -49,9 +49,24 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.put("/:id/course", async (req, res) => {
+router.put("/:id/update", async (req, res) => {
   try {
+    // hash or encrypt users password
     const user = await User.findById(req.params.id);
-    await user.updateOne({ $push: { courses: req.body.broadcast } });
-  } catch (err) {}
+
+    // create new user with hashed password
+    await user.updateOne({ country: req.body.country });
+    await user.updateOne({ level: req.body.level });
+    await user.updateOne({ college: req.body.college });
+    await user.updateOne({ state: req.body.state });
+    await user.updateOne({ school: req.body.school });
+    await user.updateOne({ department: req.body.department });
+
+    // save user and return response
+    const updateUser = await User.findById(req.params.id);
+
+    res.status(200).json(updateUser);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });

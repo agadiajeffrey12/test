@@ -1,71 +1,63 @@
 const mongoose = require("mongoose");
 
-const userSchema = new mongoose.Schema(
-  {
-    firstname: {
-      type: String,
-      required: true,
-      min: 3,
-      max: 30,
-      // unique: true,
-    },
-    name: {
-      type: String,
-      required: true,
-      min: 3,
-      max: 30,
-      // unique: true,
-    },
-    email: {
-      type: String,
-      required: true,
-      max: 50,
-      unique: true,
-    },
-    password: {
-      type: String,
-      required: true,
-      min: 6,
-    },
-    profilePicture: {
-      type: String,
-      default: "",
-    },
-    isStudent: {
-      type: String,
-      default: "",
-    },
-    isTeacher: {
-      type: String,
-      default: "",
-    },
-    tutorials: {
-      type: Array,
-      default: [],
-    },
-    desc: {
-      type: String,
-      max: 50,
-    },
-    institution: {
-      type: String,
-      default: "",
-    },
-    college: {
-      type: String,
-      default: "",
-    },
-    level: {
-      type: String,
-      default: "",
-    },
-    courses: {
-      type: Array,
-      default: [],
-    },
-  }
-  // { timestamps: true }
-);
+const userSchema = new mongoose.Schema({
+  firstname: {
+    type: String,
+    required: true,
+    min: 3,
+    max: 30,
+  },
+  lastname: {
+    type: String,
+    required: true,
+    min: 3,
+    max: 30,
+  },
+  email: {
+    type: String,
+    required: true,
+    max: 50,
+    unique: true,
+  },
+  country: {
+    type: String,
+    required: false,
+    max: 50,
+  },
+  state: {
+    type: String,
+    required: false,
+    max: 50,
+  },
+  school: {
+    type: String,
+    required: false,
+    max: 50,
+  },
+  college: {
+    type: String,
+    required: false,
+    max: 50,
+  },
+  department: {
+    type: String,
+    required: false,
+    max: 50,
+  },
+  password: {
+    type: String,
+    required: true,
+    min: 6,
+  },
+  profilePicture: {
+    type: String,
+    default: "",
+  },
+  level: {
+    type: String,
+    default: "",
+  },
+});
 
 const User = mongoose.model("User", userSchema);
 
